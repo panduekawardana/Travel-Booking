@@ -1,6 +1,6 @@
 import { pgTable, text, timestamp, uuid, varchar, integer } from "drizzle-orm/pg-core";
 import { productEnum, productStatusEnum } from "./enum.js";
-import { destinations } from "./destination.js";
+import { destinations } from "./destinations.js";
 import { users } from "./users.js";
 
 
