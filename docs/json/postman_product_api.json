@@ -1,0 +1,356 @@
+{
+  "info": {
+    "name": "Travel Booking - Product API",
+    "description": "Collection untuk testing endpoint Product API\n\n**Environment Variables:**\n- `base_url`: Base URL API (default: `http://localhost:5000`)\n- `token`: Bearer token JWT hasil login\n- `productId`: ID product (auto-populated dari response POST)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5000",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "productId",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "auth", "login"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "Create Hotel",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    var json = pm.response.json();",
+                  "    if (json.data && json.data.id) {",
+                  "        pm.collectionVariables.set('productId', json.data.id);",
+                  "    }",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"hotel\",\n  \"title\": \"Grand Hyatt Jakarta\",\n  \"slug\": \"grand-hyatt-jakarta\",\n  \"description\": \"Hotel bintang 5 di pusat kota Jakarta dengan pemandangan skyline yang menakjubkan.\",\n  \"thumbnailUrl\": \"https://images.unsplash.com/photo-1566073771259-6a8506099945\",\n  \"images\": [\n    \"https://images.unsplash.com/photo-1566073771259-6a8506099945\",\n    \"https://images.unsplash.com/photo-1582719508461-905c673771fd\"\n  ],\n  \"starRating\": 5,\n  \"address\": \"Jl. M.H. Thamrin No. 1, Jakarta Pusat 10310\",\n  \"checkInTime\": \"14:00:00\",\n  \"checkOutTime\": \"12:00:00\",\n  \"facilities\": [\n    \"Kolam Renang\",\n    \"Spa\",\n    \"Gym\",\n    \"Restoran\",\n    \"Parkir Gratis\",\n    \"WiFi Gratis\",\n    \"Layanan Kamar 24 Jam\"\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/products",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "products"]
+            }
+          }
+        },
+        {
+          "name": "Create Package",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    var json = pm.response.json();",
+                  "    if (json.data && json.data.id) {",
+                  "        pm.collectionVariables.set('productId', json.data.id);",
+                  "    }",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"package\",\n  \"title\": \"Liburan Seru Bali 3 Hari 2 Malam\",\n  \"slug\": \"liburan-seru-bali-3h2m\",\n  \"description\": \"Paket liburan ke Bali dengan akomodasi hotel bintang 4 dan tur ke tempat-tempat ikonik.\",\n  \"thumbnailUrl\": \"https://images.unsplash.com/photo-1537996194471-e657df975ab4\",\n  \"destinationId\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"durationDays\": 3,\n  \"durationNights\": 2,\n  \"itinerary\": [\n    {\n      \"day\": 1,\n      \"title\": \"Kedatangan dan Check-in\",\n      \"description\": \"Sampai di Bandara Ngurah Rai, transfer ke hotel, check-in dan free time\"\n    },\n    {\n      \"day\": 2,\n      \"title\": \"Wisata Budaya Ubud\",\n      \"description\": \"Kunjungan ke Monkey Forest, Tegalalang Rice Terrace, dan Pura Uluwatu\"\n    },\n    {\n      \"day\": 3,\n      \"title\": \"Pantai dan Check-out\",\n      \"description\": \"Sarapan, free time di Pantai Kuta, check-out dan transfer ke bandara\"\n    }\n  ],\n  \"includeItems\": [\n    \"Tiket pesawat PP\",\n    \"Akomodasi 2 malam\",\n    \"Makan pagi\",\n    \"Tour guide\",\n    \"Transportasi AC\",\n    \"Asuransi perjalanan\"\n  ],\n  \"excludeItems\": [\n    \"Makan siang & malam\",\n    \"Biaya pribadi\",\n    \"Tipping\"\n  ],\n  \"minPax\": 2\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/products",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "products"]
+            }
+          }
+        },
+        {
+          "name": "Create Rental",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    var json = pm.response.json();",
+                  "    if (json.data && json.data.id) {",
+                  "        pm.collectionVariables.set('productId', json.data.id);",
+                  "    }",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"rental\",\n  \"title\": \"Sewa Toyota Innova Zenix\",\n  \"slug\": \"sewa-toyota-innova-zenix\",\n  \"description\": \"Mobil keluarga nyaman untuk perjalanan wisata Anda.\",\n  \"thumbnailUrl\": \"https://images.unsplash.com/photo-1544636331-e26879cd4d9b\",\n  \"vehicleType\": \"Toyota Innova Zenix\",\n  \"capacity\": 7,\n  \"withDriver\": true,\n  \"transmission\": \"Automatic\",\n  \"pricePerDay\": 750000,\n  \"totalUnits\": 5\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/products",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "products"]
+            }
+          }
+        },
+        {
+          "name": "Get All Products",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/products?page=1&limit=10&type=hotel&status=published",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "products"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Halaman (default: 1)"
+                },
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Jumlah data per halaman (default: 10, max: 100)"
+                },
+                {
+                  "key": "type",
+                  "value": "hotel",
+                  "description": "Filter tipe product: hotel | package | rental"
+                },
+                {
+                  "key": "status",
+                  "value": "published",
+                  "description": "Filter status: draft | published | archived"
+                },
+                {
+                  "key": "destinationId",
+                  "value": "",
+                  "description": "Filter berdasarkan destination ID (UUID)"
+                },
+                {
+                  "key": "search",
+                  "value": "",
+                  "description": "Pencarian berdasarkan title atau slug"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Product by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/products/{{productId}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "products", "{{productId}}"]
+            }
+          }
+        },
+        {
+          "name": "Update Product",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Grand Hyatt Jakarta - Updated\",\n  \"slug\": \"grand-hyatt-jakarta-updated\",\n  \"description\": \"Deskripsi baru untuk hotel ini.\",\n  \"status\": \"published\",\n  \"thumbnailUrl\": \"https://images.unsplash.com/photo-1566073771259-6a8506099945\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/products/{{productId}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "products", "{{productId}}"]
+            }
+          }
+        },
+        {
+          "name": "Delete Product",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/products/{{productId}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "products", "{{productId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Sample Request Bodies (Raw JSON)",
+      "item": [
+        {
+          "name": "Hotel - Minimal",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"hotel\",\n  \"title\": \"Hotel Murah\",\n  \"slug\": \"hotel-murah\",\n  \"address\": \"Jl. Merdeka No. 10\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/products",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "products"]
+            }
+          }
+        },
+        {
+          "name": "Package - Minimal",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"package\",\n  \"title\": \"Paket Hemat\",\n  \"slug\": \"paket-hemat\",\n  \"durationDays\": 2,\n  \"durationNights\": 1\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/products",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "products"]
+            }
+          }
+        },
+        {
+          "name": "Rental - Minimal",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"rental\",\n  \"title\": \"Sewa Mobil\",\n  \"slug\": \"sewa-mobil\",\n  \"vehicleType\": \"Toyota Avanza\",\n  \"capacity\": 7,\n  \"pricePerDay\": 500000\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/products",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "products"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

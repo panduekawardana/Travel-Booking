@@ -1,0 +1,44 @@
+{
+  "type": "package",
+  "title": "Liburan Seru Bali 3 Hari 2 Malam",
+  "slug": "liburan-seru-bali-3h2m",
+  "description": "Paket liburan ke Bali dengan akomodasi hotel bintang 4 dan tur ke tempat-tempat ikonik.",
+  "destinationId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "thumbnailUrl": "https://images.unsplash.com/photo-1537996194471-e657df975ab4",
+  "images": [
+    "https://images.unsplash.com/photo-1537996194471-e657df975ab4"
+  ],
+  "durationDays": 3,
+  "durationNights": 2,
+  "itinerary": [
+    {
+      "day": 1,
+      "title": "Kedatangan dan Check-in",
+      "description": "Sampai di Bandara Ngurah Rai, transfer ke hotel, check-in dan free time"
+    },
+    {
+      "day": 2,
+      "title": "Wisata Budaya Ubud",
+      "description": "Kunjungan ke Monkey Forest, Tegalalang Rice Terrace, dan Pura Uluwatu"
+    },
+    {
+      "day": 3,
+      "title": "Pantai dan Check-out",
+      "description": "Sarapan, free time di Pantai Kuta, check-out dan transfer ke bandara"
+    }
+  ],
+  "includeItems": [
+    "Tiket pesawat PP",
+    "Akomodasi 2 malam",
+    "Makan pagi",
+    "Tour guide",
+    "Transportasi AC",
+    "Asuransi perjalanan"
+  ],
+  "excludeItems": [
+    "Makan siang & malam",
+    "Biaya pribadi",
+    "Tipping"
+  ],
+  "minPax": 2
+}

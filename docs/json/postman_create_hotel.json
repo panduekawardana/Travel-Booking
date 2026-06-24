@@ -1,0 +1,25 @@
+{
+  "type": "hotel",
+  "title": "Grand Hyatt Jakarta",
+  "slug": "grand-hyatt-jakarta",
+  "description": "Hotel bintang 5 di pusat kota Jakarta dengan pemandangan skyline yang menakjubkan.",
+  "destinationId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "thumbnailUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945",
+  "images": [
+    "https://images.unsplash.com/photo-1566073771259-6a8506099945",
+    "https://images.unsplash.com/photo-1582719508461-905c673771fd"
+  ],
+  "starRating": 5,
+  "address": "Jl. M.H. Thamrin No. 1, Jakarta Pusat 10310",
+  "checkInTime": "14:00:00",
+  "checkOutTime": "12:00:00",
+  "facilities": [
+    "Kolam Renang",
+    "Spa",
+    "Gym",
+    "Restoran",
+    "Parkir Gratis",
+    "WiFi Gratis",
+    "Layanan Kamar 24 Jam"
+  ]
+}

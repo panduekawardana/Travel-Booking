@@ -1,0 +1,13 @@
+{
+  "type": "rental",
+  "title": "Sewa Toyota Innova Zenix",
+  "slug": "sewa-toyota-innova-zenix",
+  "description": "Mobil keluarga nyaman untuk perjalanan wisata Anda.",
+  "thumbnailUrl": "https://images.unsplash.com/photo-1544636331-e26879cd4d9b",
+  "vehicleType": "Toyota Innova Zenix",
+  "capacity": 7,
+  "withDriver": true,
+  "transmission": "Automatic",
+  "pricePerDay": 750000,
+  "totalUnits": 5
+}
