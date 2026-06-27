@@ -27,4 +27,4 @@ export { payments } from './payments.js';
 export * from './relations.js'
 
 // Enum
-export * from './enum.js';
+export { userRoleEnum, productEnum, productStatusEnum, scheduleStatusEnum, bookingStatusEnum, paymentStatusEnum } from './enum.js';

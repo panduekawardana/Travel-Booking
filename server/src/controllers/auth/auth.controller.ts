@@ -152,6 +152,69 @@ export const login = async (req: Request, res: Response) => {
   }
 };
 
+export const loginAdmin = async (req: Request, res: Response) => {
+  try {
+    const parsed = loginSchema.safeParse(req.body);
+    if (!parsed.success) {
+      res.status(400).json({ success: false, message: "Validation error", errors: parsed.error.flatten().fieldErrors });
+      return;
+    }
+
+    const { email, password } = parsed.data;
+
+    const [user] = await db.select().from(users).where(eq(users.email, email)).limit(1);
+    if (!user) {
+      res.status(401).json({ success: false, message: "Invalid email or password" });
+      return;
+    }
+
+    if (user.role !== "admin") {
+      res.status(403).json({ success: false, message: "Access denied. Admin only." });
+      return;
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.passwordHash);
+    if (!isPasswordValid) {
+      res.status(401).json({ success: false, message: "Invalid email or password" });
+      return;
+    }
+
+    if (!user.isActive) {
+      res.status(403).json({ success: false, message: "Account is deactivated" });
+      return;
+    }
+
+    const accessToken = generateAccessToken(user.id, user.email);
+    const { raw: refreshTokenRaw, hash: refreshTokenHash } = generateRefreshToken();
+
+    await db.insert(refreshTokens).values({
+      userId: user.id,
+      tokenHash: refreshTokenHash,
+      expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+    });
+
+    res.json({
+      success: true,
+      message: "Admin login successful",
+      data: {
+        user: {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          phone: user.phone,
+          role: user.role,
+          isActive: user.isActive,
+        },
+        accessToken,
+        refreshToken: refreshTokenRaw,
+      },
+    });
+  } catch (error) {
+    console.error("Admin login error:", error);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
+
 export const profile = async (req: Request, res: Response) => {
   try {
     const userId = req.user?.userId;
@@ -166,6 +229,7 @@ export const profile = async (req: Request, res: Response) => {
         name: users.name,
         email: users.email,
         phone: users.phone,
+        role: users.role,
         createdBy: users.createdBy,
         isActive: users.isActive,
         createdAt: users.createdAt,
@@ -180,7 +244,7 @@ export const profile = async (req: Request, res: Response) => {
       return;
     }
 
-    res.json({ success: true, data: user });
+    res.json({ success: true, data: { user } });
   } catch (error) {
     console.error("Profile error:", error);
     res.status(500).json({ success: false, message: "Internal server error" });

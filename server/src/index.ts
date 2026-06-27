@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import type { Request, Response, NextFunction } from "express";
 import { NODE_ENV, PORT, URL } from "./config/env.js";
 import { userRouter } from "./routes/user.routes.js";
@@ -12,6 +13,10 @@ import { paymentRouter } from "./routes/payment.routes.js";
 
 const app = express();
 
+app.use(cors({
+  origin: ["http://localhost:3000", "http://localhost:3001"],
+  credentials: true,
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 

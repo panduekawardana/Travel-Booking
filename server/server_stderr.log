@@ -1,0 +1,34 @@
+Register error: DrizzleQueryError: Failed query: select "id", "name", "email", "phone", "password_hash", "role", "created_by", "is_active", "created_at", "updated_at" from "users" where "users"."email" = $1 limit $2
+params: user@gmail.com,1
+    at NeonPreparedQuery.queryWithCache (D:\Nextjs\04_travel_booking\server\node_modules\src\pg-core\session.ts:73:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async NeonPreparedQuery.execute (D:\Nextjs\04_travel_booking\server\node_modules\src\neon-serverless\session.ts:152:18)
+    at async register (D:\Nextjs\04_travel_booking\server\src\controllers\auth\auth.controller.ts:47:26) {
+  query: 'select "id", "name", "email", "phone", "password_hash", "role", "created_by", "is_active", "created_at", "updated_at" from "users" where "users"."email" = $1 limit $2',
+  params: [ 'user@gmail.com', 1 ],
+  cause: error: column "role" does not exist
+      at file:///D:/Nextjs/04_travel_booking/server/node_modules/@neondatabase/serverless/index.mjs:1087:33
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+      at async <anonymous> (D:\Nextjs\04_travel_booking\server\node_modules\src\neon-serverless\session.ts:153:11)
+      at async NeonPreparedQuery.queryWithCache (D:\Nextjs\04_travel_booking\server\node_modules\src\pg-core\session.ts:71:12)
+      at async NeonPreparedQuery.execute (D:\Nextjs\04_travel_booking\server\node_modules\src\neon-serverless\session.ts:152:18)
+      at async register (D:\Nextjs\04_travel_booking\server\src\controllers\auth\auth.controller.ts:47:26) {
+    length: 104,
+    severity: 'ERROR',
+    code: '42703',
+    detail: undefined,
+    hint: undefined,
+    position: '57',
+    internalPosition: undefined,
+    internalQuery: undefined,
+    where: undefined,
+    schema: undefined,
+    table: undefined,
+    column: undefined,
+    dataType: undefined,
+    constraint: undefined,
+    file: 'parse_relation.c',
+    line: '3822',
+    routine: 'errorMissingColumn'
+  }
+}

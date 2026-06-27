@@ -1,4 +1,5 @@
 import { boolean, pgTable, text, timestamp, uuid, varchar, type AnyPgColumn } from "drizzle-orm/pg-core";
+import { userRoleEnum } from "./enum.js";
 
 export const users = pgTable("users", {
     id: uuid('id').defaultRandom().primaryKey().notNull(),
@@ -6,6 +7,7 @@ export const users = pgTable("users", {
     email: varchar("email", { length: 150 }).unique().notNull(),
     phone: varchar("phone", { length: 20 }),
     passwordHash: text("password_hash").notNull(),
+    role: userRoleEnum("role").notNull().default("costumer"),
 
     createdBy: uuid("created_by").references((): AnyPgColumn => users.id, { onDelete: "set null" }),
 
