@@ -1,0 +1,2 @@
+◇ injected env (6) from .env.development // tip: ⌘ enable debugging { debug: true }
+App running at http://localhost:5000 development mode

@@ -52,6 +52,27 @@ export const updateProductSchema = z.object({
   thumbnailUrl: z.string().url().optional(),
   status: z.enum(["draft", "published", "archived"]).optional(),
   destinationId: z.string().uuid().optional(),
+  images: z.array(z.string().url()).optional(),
+  // Hotel-specific
+  starRating: z.number().int().min(1).max(5).optional(),
+  address: z.string().min(5).optional(),
+  checkInTime: z.string().optional(),
+  checkOutTime: z.string().optional(),
+  facilities: z.array(z.string()).optional(),
+  // Package-specific
+  durationDays: z.number().int().positive().optional(),
+  durationNights: z.number().int().positive().optional(),
+  itinerary: z.array(z.object({ day: z.number(), title: z.string(), description: z.string() })).optional(),
+  includeItems: z.array(z.string()).optional(),
+  excludeItems: z.array(z.string()).optional(),
+  minPax: z.number().int().positive().optional(),
+  // Rental-specific
+  vehicleType: z.string().min(2).max(100).optional(),
+  capacity: z.number().int().positive().optional(),
+  withDriver: z.boolean().optional(),
+  transmission: z.string().max(20).optional(),
+  pricePerDay: z.number().positive().optional(),
+  totalUnits: z.number().int().positive().optional(),
 });
 
 export const queryProductSchema = z.object({

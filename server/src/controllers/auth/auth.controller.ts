@@ -13,12 +13,12 @@ const registerSchema = z.object({
   email: z.string().email().max(150),
   password: z.string().min(6).max(100),
   phone: z.string().max(20).optional(),
-});
+}).strict();
 
 const loginSchema = z.object({
   email: z.string().email().max(150),
   password: z.string().min(1),
-});
+}).strict();
 
 const refreshSchema = z.object({
   refreshToken: z.string().min(1),
@@ -138,6 +138,9 @@ export const login = async (req: Request, res: Response) => {
           email: user.email,
           phone: user.phone,
           isActive: user.isActive,
+        },
+        time: {
+          date: user.createdAt,
         },
         accessToken,
         refreshToken: refreshTokenRaw,

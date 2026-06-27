@@ -1,6 +1,5 @@
-import 'dotenv/config.js';
 import { defineConfig } from 'drizzle-kit';
-import { DATABASE_URL } from './src/config/env.js';
+import { DATABASE_URL } from './src/config/env';
 
 if(!DATABASE_URL) {
     throw new Error("Database is not configured in .env");

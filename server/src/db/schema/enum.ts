@@ -31,12 +31,6 @@ export const productStatusEnum = pgEnum("product_status", [
 export const scheduleStatusEnum = pgEnum("schedule_status", ["open", "closed", "cancelled"]);
 
 /**
- * Product type enum
- * */
-
-export const productTypeEnum = pgEnum("product_type", ["hotel", "package", "rental"]);
-
-/**
  * Booking status enum
  * */
 

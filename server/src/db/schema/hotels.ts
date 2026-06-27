@@ -21,7 +21,7 @@ export const hotelRooms = pgTable("hotel_rooms", {
     name: varchar("name", { length: 150 }).notNull(),
     description: text("description"),
     pricePerNight: numeric("price_per_night", { precision: 12, scale: 2 }).notNull(),
-    totalRooms: integer("totoal_rooms").notNull().default(1),
+    totalRooms: integer("total_rooms").notNull().default(1),
     facilities: jsonb("facilities").$type<string[]>().default([]),
 });
 

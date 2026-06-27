@@ -36,5 +36,5 @@ export const productImages = pgTable("product_images", {
     productId: uuid("product_id").references(() => products.id, {onDelete: "cascade"}),
     url: text("url").notNull(),
     shortOrder: integer("short_order").notNull().default(0),
-    createdAt: timestamp("crated_at", {withTimezone: true}).defaultNow().notNull()   
+    createdAt: timestamp("created_at", {withTimezone: true}).defaultNow().notNull()   
 });

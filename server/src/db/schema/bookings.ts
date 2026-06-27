@@ -11,7 +11,7 @@
  * */
 import { date, integer, numeric, pgTable, text, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
 import { users } from "./users.js";
-import { bookingStatusEnum, productTypeEnum } from "./enum.js";
+import { bookingStatusEnum, productEnum } from "./enum.js";
 import { products } from "./products.js";
 import { hotelRooms } from "./hotels.js";
 import { packageSchedules } from "./packages.js";
@@ -24,7 +24,7 @@ export const bookings = pgTable("bookings", {
 
     customerId: uuid("costumer_id").notNull().references(() => users.id),
 
-    productType: productTypeEnum("product_type").notNull(),
+    productType: productEnum("product_type").notNull(),
     productId: uuid("product_id").notNull().references(() => products.id),
 
     roomId: uuid("room_id").references(() => hotelRooms.id),
